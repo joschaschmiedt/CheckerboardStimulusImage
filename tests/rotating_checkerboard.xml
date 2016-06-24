@@ -1,0 +1,39 @@
+<?xml version="1.0" standalone="no"?>
+<monkeyml version="1.0">
+    <io_devices tag="IO Devices"></io_devices>
+    <variables tag="Variables">
+        <variable tag="checkerboard_size" scope="global" logging="when_changed" exclude_from_data_file="NO" default_value="15" type="any"></variable>
+        <variable tag="deg_per_sec" scope="global" logging="when_changed" exclude_from_data_file="NO" default_value="360" type="float"></variable>
+        <variable tag="done" scope="global" logging="when_changed" exclude_from_data_file="NO" default_value="0" type="any"></variable>
+    </variables>
+    <sounds tag="Sounds"></sounds>
+    <stimuli tag="Stimuli">
+        <stimulus type="frame_list" tag="frame_list" stimulus_group="frames" ending="" ended="" loop="YES" repeats="0" autoplay="YES"></stimulus>
+        <stimulus_group tag="frames">
+            <stimulus type="image_file" tag="checkerboard" path="checkerboard.png" x_size="checkerboard_size" y_size="checkerboard_size" x_position="0.0" y_position="0.0" rotation="(now() / 1e6) * deg_per_sec" alpha_multiplier="1.0" deferred="NO"></stimulus>
+        </stimulus_group>
+    </stimuli>
+    <filters tag="Filters"></filters>
+    <optimizers tag="Optimizers"></optimizers>
+    <experiment tag="New Experiment" full_name="" description="">
+        <protocol tag="New Protocol" nsamples="1" sampling_method="cycles" selection="sequential" interruptible="YES">
+            <task_system tag="New Task System" interruptible="YES">
+                <task_system_state tag="Begin State System" interruptible="YES">
+                    <action_marker _unmoveable="1" tag="Actions"></action_marker>
+                    <action type="assignment" tag="Reset done" variable="done" value="false"></action>
+                    <action tag="Queue rotating checkerboard" type="live_queue_stimulus" stimulus="frame_list"></action>
+                    <action tag="Update display" type="update_stimulus_display" predicted_output_time=""></action>
+                    <transition_marker _unmoveable="1" tag="Transitions"></transition_marker>
+                    <transition type="conditional" tag="If Condition is True, Transition to ..." condition="done" target="Exit State System"></transition>
+                </task_system_state>
+                <task_system_state tag="Exit State System" interruptible="YES">
+                    <action_marker _unmoveable="1" tag="Actions"></action_marker>
+                    <action tag="Dequeue frame list" type="dequeue_stimulus" stimulus="frame_list"></action>
+                    <action tag="Update display" type="update_stimulus_display" predicted_output_time=""></action>
+                    <transition_marker _unmoveable="1" tag="Transitions"></transition_marker>
+                    <transition tag="Return to parent task system" type="yield"></transition>
+                </task_system_state>
+            </task_system>
+        </protocol>
+    </experiment>
+</monkeyml>
