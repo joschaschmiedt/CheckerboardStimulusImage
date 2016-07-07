@@ -6,7 +6,7 @@ function generate_mask_annulus(cfg)
 %   cfg : configuration struct with fields
 %       .imgSize : size of stimulus in px (default=screen size)%       
 %       .maskGrayValue : 8 bit gray value for mask (default=128)
-%       .innerRadius : start of annulus from center in px (default=100px)
+%       .innerRadius : start of annulus from center in px (default=300)
 %       .outerRadius : end of annulus from center in px (default=400)
 %       .filename : name of PNG file (default='auto')
 
@@ -20,7 +20,7 @@ if ~isfield(cfg, 'imgSize')
 end
 
 if ~isfield(cfg, 'maskGrayValue'); cfg.maskGrayValue = 128; end %(0-255)
-if ~isfield(cfg, 'innerRadius'); cfg.innerRadius = 100; end % px
+if ~isfield(cfg, 'innerRadius'); cfg.innerRadius = 300; end % px
 if ~isfield(cfg, 'outerRadius'); cfg.outerRadius = 400; end % px
 if ~isfield(cfg, 'filename'); cfg.filename = 'auto'; end
 
